@@ -1,7 +1,9 @@
-import type { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import React from 'react'
-import { Block } from 'vtex.render-runtime'
+import { Block, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
+
+
 
 const enum Device {
   mobile = 'mobile',
@@ -34,10 +36,30 @@ const CustomHeaderLayout = React.memo(({ device }: { device: Device }) => {
 CustomHeaderLayout.displayName = 'CustomHeaderLayout'
 
 const CustomHeader: FunctionComponent = () => {
+  const runtime = useRuntime()
+  const currentPage = runtime.page
+  const isOrderPlacedPage = currentPage === 'store.orderplaced'
+  const [isHidden, setIsHidden] = useState(isOrderPlacedPage)
   const { isMobile } = useDevice()
 
+
+  useEffect(() => {
+    if (isOrderPlacedPage) {
+      const checkCookie = () => {
+        const cookies = document.cookie.split(';')
+        const isAppCookie = cookies.some(cookie => cookie.trim().startsWith('is_app='))
+        setIsHidden(isAppCookie)
+      }
+      checkCookie()
+    } else {
+      setIsHidden(false)
+    }
+  }, [isOrderPlacedPage])
+
   return (
-    <CustomHeaderLayout device={isMobile ? Device.mobile : Device.desktop} />
+    <div style={{ display: isHidden ? 'none' : 'block' }}>
+      <CustomHeaderLayout device={isMobile ? Device.mobile : Device.desktop} />
+    </div>
   )
 }
 
