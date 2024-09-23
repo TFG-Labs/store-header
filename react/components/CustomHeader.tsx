@@ -47,7 +47,7 @@ const CustomHeader: FunctionComponent = () => {
     if (isOrderPlacedPage) {
       const checkCookie = () => {
         const cookies = document.cookie.split(';')
-        const isAppCookie = cookies.some(cookie => cookie.trim().startsWith('is_app='))
+        const isAppCookie = cookies.some(cookie => cookie.trim().startsWith('is_app=true'))
         setIsHidden(isAppCookie)
       }
       checkCookie()
