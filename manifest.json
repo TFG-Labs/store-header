@@ -1,7 +1,7 @@
 {
   "vendor": "thefoschini",
   "name": "store-header",
-  "version": "2.30.3",
+  "version": "2.30.4",
   "title": "VTEX Store Header",
   "defaultLocale": "pt-BR",
   "description": "The VTEX Store Header component",
