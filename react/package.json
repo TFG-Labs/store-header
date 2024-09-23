@@ -26,7 +26,6 @@
     "vtex.sandbox": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.sandbox@0.5.1/public/@types/vtex.sandbox",
     "vtex.store-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.175.1/public/@types/vtex.store-components",
     "vtex.store-drawer": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-drawer@0.17.2/public/@types/vtex.store-drawer",
-    "vtex.store-header": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-header@2.29.0/public/@types/vtex.store-header",
     "vtex.store-icons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.18.0/public/@types/vtex.store-icons",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide",
     "vtex.telemarketing": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.telemarketing@2.12.1/public/@types/vtex.telemarketing"
