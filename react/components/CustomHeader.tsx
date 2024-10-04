@@ -33,17 +33,22 @@ const CustomHeaderLayout = React.memo(({ device }: { device: Device }) => {
 
 CustomHeaderLayout.displayName = 'CustomHeaderLayout'
 
+const HIDDEN_PAGES = [
+  'store.orderplaced',
+  'store.account',
+  'store.custom#paynow',
+  // Add more page to hide header
+]
+
 const CustomHeader: FunctionComponent = () => {
   const runtime = useRuntime()
   const currentPage = runtime.page
-  const isOrderPlacedPage = currentPage === 'store.orderplaced'
-  const isStoreAccount = currentPage === 'store.account'
-  const isPayNow = currentPage === 'store.custom#paynow'
-  const [isHidden, setIsHidden] = useState(isOrderPlacedPage)
+  const shouldHideHeader = HIDDEN_PAGES.includes(currentPage)
+  const [isHidden, setIsHidden] = useState(shouldHideHeader ?? false)
   const { isMobile } = useDevice()
 
   useEffect(() => {
-    if (isOrderPlacedPage || isStoreAccount || isPayNow) {
+    if (shouldHideHeader) {
       const checkCookie = () => {
         const cookies = document.cookie.split(';')
         const isAppCookie = cookies.some((cookie) =>
@@ -57,7 +62,8 @@ const CustomHeader: FunctionComponent = () => {
     } else {
       setIsHidden(false)
     }
-  }, [isOrderPlacedPage])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div style={{ display: isHidden ? 'none' : 'block' }}>
