@@ -1,9 +1,7 @@
-import { FunctionComponent, useEffect, useState } from 'react'
-import React from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Block, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
-
-
 
 const enum Device {
   mobile = 'mobile',
@@ -39,17 +37,22 @@ const CustomHeader: FunctionComponent = () => {
   const runtime = useRuntime()
   const currentPage = runtime.page
   const isOrderPlacedPage = currentPage === 'store.orderplaced'
+  const isStoreAccount = currentPage === 'store.account'
+  const isPayNow = currentPage === 'store.custom#paynow'
   const [isHidden, setIsHidden] = useState(isOrderPlacedPage)
   const { isMobile } = useDevice()
 
-
   useEffect(() => {
-    if (isOrderPlacedPage) {
+    if (isOrderPlacedPage || isStoreAccount || isPayNow) {
       const checkCookie = () => {
         const cookies = document.cookie.split(';')
-        const isAppCookie = cookies.some(cookie => cookie.trim().startsWith('is_app=true'))
+        const isAppCookie = cookies.some((cookie) =>
+          cookie.trim().startsWith('is_app=true')
+        )
+
         setIsHidden(isAppCookie)
       }
+
       checkCookie()
     } else {
       setIsHidden(false)
