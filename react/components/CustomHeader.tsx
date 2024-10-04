@@ -1,9 +1,7 @@
-import { FunctionComponent, useEffect, useState } from 'react'
-import React from 'react'
+import type { FunctionComponent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Block, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
-
-
 
 const enum Device {
   mobile = 'mobile',
@@ -35,26 +33,37 @@ const CustomHeaderLayout = React.memo(({ device }: { device: Device }) => {
 
 CustomHeaderLayout.displayName = 'CustomHeaderLayout'
 
+const HIDDEN_PAGES = [
+  'store.orderplaced',
+  'store.account',
+  'store.custom#paynow',
+  // Add more page to hide header
+]
+
 const CustomHeader: FunctionComponent = () => {
   const runtime = useRuntime()
   const currentPage = runtime.page
-  const isOrderPlacedPage = currentPage === 'store.orderplaced'
-  const [isHidden, setIsHidden] = useState(isOrderPlacedPage)
+  const shouldHideHeader = HIDDEN_PAGES.includes(currentPage)
+  const [isHidden, setIsHidden] = useState(shouldHideHeader ?? false)
   const { isMobile } = useDevice()
 
-
   useEffect(() => {
-    if (isOrderPlacedPage) {
+    if (shouldHideHeader) {
       const checkCookie = () => {
         const cookies = document.cookie.split(';')
-        const isAppCookie = cookies.some(cookie => cookie.trim().startsWith('is_app=true'))
+        const isAppCookie = cookies.some((cookie) =>
+          cookie.trim().startsWith('is_app=true')
+        )
+
         setIsHidden(isAppCookie)
       }
+
       checkCookie()
     } else {
       setIsHidden(false)
     }
-  }, [isOrderPlacedPage])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div style={{ display: isHidden ? 'none' : 'block' }}>
