@@ -1,7 +1,7 @@
 {
   "vendor": "thefoschini",
   "name": "store-header",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "title": "VTEX Store Header",
   "defaultLocale": "pt-BR",
   "description": "The VTEX Store Header component",
@@ -13,9 +13,7 @@
   },
   "mustUpdateAt": "2019-04-02",
   "categories": [],
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
